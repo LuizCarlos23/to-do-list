@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="/static/css/home.css">
+<div id="container">
+    <h1>Hello World!</h1>
+
+    <div id="toDoList">
+
+        <div class="item" id="addToDo">
+            <input type="button" value="+" id="addbutton" onclick="saveData()">
+            <input type="text" id="inputToDo">
+            <input type="button" onclick="updateItens()" value="Salvar">
+        </div>
+
+
+        {{#if to_do_list}}
+            {{#each to_do_list}}
+
+            <div class="item" id="item_{{this.id}}">
+                <div class="check" >
+                    {{#if this.checked}}
+                    <input type="checkbox" class="checkbox" id="{{this.id}}" checked >
+                    {{else}}
+                    <input type="checkbox" class="checkbox" id="{{this.id}}" />
+                    {{/if}}
+
+                    <label class="text" for="{{this.id}}">{{this.content}}</label>
+                </div>
+                <div class="delete">
+                    <input type="button" class="deleteButton" value="X" data-id="{{this.id}}">
+                </div>
+            </div>
+
+            {{/each}}
+        {{/if}}
+
+    </div>
+</div>
+<script src="/static/js/home.js" ></script>

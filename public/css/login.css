@@ -1,0 +1,99 @@
+body {
+    background-color: rgb(79, 160, 251);
+    font-family: "Arial";
+    margin: 0px;
+    padding: 0px;
+}
+
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    background-color: white;
+    box-shadow: 0 0 .8em rgba(0, 0, 0, 0.767);
+    border-radius: 5px;
+    padding: 1em;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 60, 255);
+}
+
+form p {
+    margin-top: 0px;
+}
+
+form {
+    text-align: right;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    
+}
+
+
+
+form input, #login-btn{
+    margin: 10px 0 10px;
+    font-size: 1.2em;
+
+    border: none;
+    border-radius: 0.25rem;
+}
+
+form input[type="email"], form input[type="password"]{
+    height: 3em;
+    padding-left: .8em;
+    background-color: rgba(238, 238, 238, 0.938);
+}
+
+form input[type="email"]:focus, form input[type="password"]:focus{
+    outline: none !important;
+    border: solid 1px gray;
+}
+
+
+#login-btn{
+    position: relative;
+    outline: none;
+    border: none;
+    overflow: hidden;
+    background-color: rgb(53, 145, 251);
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    padding: 1em;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+
+span {
+    position: absolute;
+    background-color: #fff;
+    transform: translate(-50%, -50%);
+    pointer-events:  none;
+    border-radius: 50%; 
+    animation: animate 1s linear infinite;
+    
+}
+
+@keyframes animate {
+    0% {
+        width: 50px;
+        height: 50px;
+        opacity: .5;
+    }
+    100% {
+        width: 1000px;
+        height: 1000px;
+        opacity: 0;
+    }
+}
