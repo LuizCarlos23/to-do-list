@@ -1,8 +1,18 @@
-// class HelloWorld {
-//     constructor(req, res){
-//         console.log(req)
-//         return res.send("Hello World")
-//     }
-// }
+const HelloWorld = function (req, res) {
+    
+    return {
+        // Para requisições com metodo GET
+        getHelloWorld: async () => {
+            return res.end()
+        }
+    }
 
-// module.exports = HelloWorld
+}
+
+module.exports = async function(req, res){
+    const HelloWorldControllers = new HelloWorld(req, res)
+
+    if (req.method === "GET"){
+        return HelloWorldControllers.getHelloWorld()
+    }
+}

@@ -1,3 +1,4 @@
+require("dotenv").config()
 const app = require("./src")
 
 const PORT = process.env.SERVER_PORT || 3000

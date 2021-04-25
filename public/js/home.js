@@ -66,7 +66,6 @@ function addItem(contentToDo, id){
     //      </div>
     //  </div>
 
-    
 }
 
 async function deleteItem(event){
@@ -99,8 +98,12 @@ async function updateItens(){
 async function handleSubmit(content, op = "save"){
     let data = {content};
     let headers = new Headers({"Content-Type": "application/json"});
-    console.log(op)
     if (op == "save"){
+      //TODO:  Substituir dps -----------------
+      let params = new window.URLSearchParams(window.URL); //TODO:  Substituir dps --------------
+      // data.user_id = params.id
+      console.log(params)
+
       return await fetch("http://localhost:3000/to_do", {
           "method": "POST",
           "headers": headers,

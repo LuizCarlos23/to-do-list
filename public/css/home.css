@@ -69,6 +69,10 @@ input[type="button"]{
     background-color: #fff;
 }
 
+#save-btn{
+    cursor: pointer;
+}
+
 #addbutton:hover{
     color: #14396A !important;
     background: #B8DEFF;

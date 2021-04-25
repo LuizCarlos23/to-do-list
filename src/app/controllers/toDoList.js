@@ -1,26 +1,28 @@
 const ToDo = require("../models/ToDo")
-
+const { Types } = require("mongoose")
 const ToDoList = function (req, res) {
-
+    
     return {
         // Para requisições com metodo GET
         getToDoList: async () => {
-            let list = await ToDo.find().exec()
-            let to_do_list = []
-            list.map(item => {
-                to_do_list.push({
-                    id: item._id,
-                    checked: item.checked,
-                    content: item.content,
-                })
-            })
-            console.log(list)
-            return res.render('home', {to_do_list} )
+            try {
+                console.log("User: ", req.session.user)
+                if (!req.session || !req.session.user) return res.redirect("http://localhost:3000/login")
+                let id = req.session.user.user_id
+                let to_do_list = await ToDo.find({user_id: Types.ObjectId(id)}).select(["_id","content", "checked"])
+                return res.render('home', {to_do_list} )
+            } catch (error) {
+                console.log(error)
+                return res.redirect("http://localhost:3000/login")
+            }
+            
         },
 
         // Para requisições com metodo POST
         postToDoList: async () => {
+            req.body.user_id = Types.ObjectId(req.session.user.user_id)
             const result = await ToDo.create(req.body)
+            console.log("To DO:", req.body)
             return res.json({"id": result.id})
         },
 
