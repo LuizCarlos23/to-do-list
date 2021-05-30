@@ -5,6 +5,7 @@ async function handleRegister(event){
     let rememberMe = document.getElementById("checkbox-remember-me").checked;
 
     let result = await handleSubmit({email, password, checked: rememberMe, usarname});
+
     return false; // Para não recarregar a pagina 
 }
 
@@ -16,8 +17,11 @@ async function handleSubmit(content = {}){
         "headers": headers,
         "body": data
     })
-        .then(result => result.json())
-        .catch(err => console.log(err))
+        .then(result => {
+            console.log(result)
+            if (result.redirected) return window.location.href = result.url
+            return result.json()
+        }) .catch(err => console.log(err))
 }
 
 function animateBtn(e){

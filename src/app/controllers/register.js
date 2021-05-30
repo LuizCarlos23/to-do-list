@@ -13,7 +13,13 @@ const Register = function (req, res){
                 if (!req.body || req.body == [] || !req.body.email || !req.body.password){
                     return res.status(400).json({"error": true, "message": "Invalid input",})
                 }
-                let result = await Users.create(req.body)
+                let result = await Users.create(req.body).catch(err => {
+                    console.log(err)
+                    if (err.keyValue.email) return { error: true, unique: false }
+                    return {error: true}
+                })
+                if (result.error && result.unique == false) return res.status(400).json({"error": true, "message": "Invalid input",})
+                if (result.error) return res.status(500).json({"error": true, "message": "Internal error",})
                 return res.redirect("http://localhost:3000/login")
             } catch (e){
                 console.log(e)

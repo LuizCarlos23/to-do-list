@@ -6,10 +6,11 @@ const ToDoList = function (req, res) {
         // Para requisições com metodo GET
         getToDoList: async () => {
             try {
-                console.log("User: ", req.session.user)
-                if (!req.session || !req.session.user) return res.redirect("http://localhost:3000/login")
-                let id = req.session.user.user_id
-                let to_do_list = await ToDo.find({user_id: Types.ObjectId(id)}).select(["_id","content", "checked"])
+                // TODO: Incrementar jwt
+                let [name_cookie, cookie_value] = req.headers.cookie.split("=")
+                console.log("User: ", cookie_value)
+                if (!cookie_value) return res.redirect("http://localhost:3000/login")
+                let to_do_list = await ToDo.find({user_id: Types.ObjectId(req.token_decoded.user_id)}).select(["_id","content", "checked"])
                 return res.render('home', {to_do_list} )
             } catch (error) {
                 console.log(error)
@@ -20,9 +21,8 @@ const ToDoList = function (req, res) {
 
         // Para requisições com metodo POST
         postToDoList: async () => {
-            req.body.user_id = Types.ObjectId(req.session.user.user_id)
+            req.body.user_id = Types.ObjectId(req.token_decoded.user_id)
             const result = await ToDo.create(req.body)
-            console.log("To DO:", req.body)
             return res.json({"id": result.id})
         },
 
@@ -30,7 +30,7 @@ const ToDoList = function (req, res) {
         deleteToDo: async () => {
             let id = req.body.content
             await ToDo.deleteOne({_id: Object(id)})
-            return res.send()
+            return res.json({"okay": true})
         },
  
         updateToDo: async () => {

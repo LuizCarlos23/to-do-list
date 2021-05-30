@@ -15,9 +15,14 @@ async function handleSubmit(content = {}){
         "method": "POST",
         "headers": headers,
         "body": data
-    }) 
-        .then(result => result.json())
-        .catch(err => console.log(err));
+    })
+    .then(response => {
+        return response.json()
+    }).then(result => {
+        console.log(result);
+        document.cookie = `jwt_token=${result.token}`
+        console.log(document.cookie)
+    }).catch(err => console.log(err));
 }
 
 function animateBtn(e){
